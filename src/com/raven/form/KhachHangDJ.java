@@ -21,14 +21,14 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class KhachHangDJ extends javax.swing.JDialog {
-    
+
     public enum ActionType {
         ADD, EDIT
     }
     private ActionType actionType;
     private khachHang_Service kh = new khachHang_Service();
     private List<khachHang> list = kh.getAll_KH();
-    
+
     public KhachHangDJ(java.awt.Frame parent, boolean modal, ActionType actionType) {
         super(parent, modal);
         initComponents();
@@ -38,7 +38,7 @@ public class KhachHangDJ extends javax.swing.JDialog {
             lbName.setText("Sửa khách hàng");
         }
     }
-    
+
     private boolean validateFields() {
         if (txtTen.getText().isEmpty() || txtSDT.getText().isEmpty()
                 || (!rdo1.isSelected() && !rdo2.isSelected()) || cbxTrangThai.getSelectedItem() == null) {
@@ -52,11 +52,11 @@ public class KhachHangDJ extends javax.swing.JDialog {
         }
         return true;
     }
-    
+
     private boolean isValidPhoneNumber(String phoneNumber) {
         return phoneNumber.matches("\\d{10}");
     }
-    
+
     private int parseGenderToInt(String genderString) {
         if (genderString.equalsIgnoreCase("Nam")) {
             return 1;
@@ -66,7 +66,7 @@ public class KhachHangDJ extends javax.swing.JDialog {
             return -1;
         }
     }
-    
+
     public void detail(int index) {
         try {
             khachHang kh = list.get(index);
@@ -263,6 +263,12 @@ public class KhachHangDJ extends javax.swing.JDialog {
             String trangThai = (String) cbxTrangThai.getSelectedItem();
             String gioiTinhString = "";
             int gioiTinh = parseGenderToInt(gioiTinhString);
+
+            if (kh.checkDuplicate(tenKH, sdt)) {
+                JOptionPane.showMessageDialog(this, "Đã có khách hàng này");
+                return;
+            }
+
             khachHang newKH = new khachHang(
                     tenKH,
                     sdt,
@@ -284,6 +290,11 @@ public class KhachHangDJ extends javax.swing.JDialog {
             String trangThai = (String) cbxTrangThai.getSelectedItem();
             String gioiTinhString = "";
             int gioiTinh = parseGenderToInt(gioiTinhString);
+
+            if (kh.checkDuplicate(tenKH, sdt)) {
+                JOptionPane.showMessageDialog(this, "Đã có khách hàng này");
+                return;
+            }
             khachHang editedND = new khachHang(id,
                     tenKH,
                     sdt,

@@ -116,4 +116,19 @@ public class Service_Voucher {
         }
         return null;
     }
+    
+    public boolean checkDuplicate(String tenVC) {
+        String sql = "SELECT COUNT(*) AS count FROM Voucher WHERE ten_vc = ? AND trang_thai != 'Đã xóa'";
+        try ( PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setObject(1, tenVC);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

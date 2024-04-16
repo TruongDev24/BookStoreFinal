@@ -338,4 +338,26 @@ public class SachService {
         }
         return null;
     }
+
+    public boolean checkDuplicate(String tenSach, String soTrang, String idTacGia, String idTheLoai, String idNXB) {
+        String sql = "SELECT COUNT(*) AS count FROM Sach S\n"
+                + "INNER JOIN ChiTietSach CT ON S.id = CT.id_sach\n"
+                + "WHERE S.ten_sach = ? AND CT.so_trang = ? AND CT.id_tacgia = ? AND CT.id_theloai = ? AND CT.id_nxb = ?";
+        try ( PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, tenSach);
+            ps.setString(2, soTrang);
+            ps.setString(3, idTacGia);
+            ps.setString(4, idTheLoai);
+            ps.setString(5, idNXB);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

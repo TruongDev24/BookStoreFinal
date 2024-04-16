@@ -5,19 +5,34 @@
  */
 package com.raven.form;
 
+import com.raven.Model2.HoaDonCTModel;
+import com.raven.Model2.HoaDonModel;
+import com.raven.Service.HoaDonSV;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author RAVEN
  */
 public class Form_QLHoaDon extends javax.swing.JPanel {
 
+    private DefaultTableModel dtm;
+    private HoaDonSV sv = new HoaDonSV();
+    private List<HoaDonModel> list1 = new ArrayList<>();
+    private List<HoaDonCTModel> list2 = new ArrayList<>();
+
     /**
      * Creates new form Form_1
      */
-    
     public Form_QLHoaDon() {
         initComponents();
+        dtm = (DefaultTableModel) tbHoaDon.getModel();
+        list1 = sv.getAll();
+        showData(list1);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,6 +87,11 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
         });
         tbHoaDon.setSelectionBackground(new java.awt.Color(204, 204, 204));
         tbHoaDon.getTableHeader().setReorderingAllowed(false);
+        tbHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbHoaDonMouseClicked(evt);
+            }
+        });
         spTable.setViewportView(tbHoaDon);
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
@@ -155,6 +175,26 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tbHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbHoaDonMouseClicked
+        // TODO add your handling code here:
+        int row = tbHoaDon.getSelectedRow();
+        Object value = tbHoaDon.getValueAt(row, 0);
+        HDCT ct = new HDCT(null, true);
+        list2 = sv.getChiTietTT(value);
+        ct.showData(list2);
+        ct.setVisible(true);
+    }//GEN-LAST:event_tbHoaDonMouseClicked
+
+    public void showData(List<HoaDonModel> listTT) {
+        dtm.setRowCount(0);
+        listTT.forEach(c -> {
+            String ngayTaoTrimmed = c.getNgayTao().substring(0, c.getNgayTao().length() - 8);
+            dtm.addRow(new Object[]{
+                c.getId(), c.getKhach(), c.getNhanVien(), ngayTaoTrimmed, c.getTongTien(), c.getPhuongThuc(), c.getTrangThai()
+            });
+        });
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

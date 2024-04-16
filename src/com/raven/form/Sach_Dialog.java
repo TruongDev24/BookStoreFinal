@@ -384,6 +384,11 @@ public class Sach_Dialog extends javax.swing.JDialog {
             tthai = "Ẩn";
         }
 
+        if (sv.checkDuplicate(ten, sotrang, tgia, tloai, nhaxb)) {
+            JOptionPane.showMessageDialog(this, "Đã có sách này");
+            return;
+        }
+
         Sach sh = new Sach(ma_sach, ma, ten, sotrang, gia, sl, ngaythem, nhaxb, tgia, tloai, hinhAnh, mta, tthai);
         boolean addS = sv.add(sh);
         if (addS) {
@@ -418,6 +423,11 @@ public class Sach_Dialog extends javax.swing.JDialog {
             tthai = "Hiện";
         } else if (rdo2.isSelected()) {
             tthai = "Ẩn";
+        }
+
+        if (sv.checkDuplicate(ten, sotrang, tgia, tloai, nhaxb)) {
+            JOptionPane.showMessageDialog(this, "Đã có sách này");
+            return;
         }
 
         Sach sh = new Sach(ma_sach, ma, ten, sotrang, gia, sl, ngaythem, nhaxb, tgia, tloai, hinhAnh, mta, tthai);

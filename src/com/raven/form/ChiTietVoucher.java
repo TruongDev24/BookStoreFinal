@@ -250,6 +250,11 @@ public class ChiTietVoucher extends javax.swing.JDialog {
             String ngaybatdau = sdf.format(nbd);
             String ngayketthuc = sdf.format(nkt);
 
+            if(sv.checkDuplicate(ten)){
+                JOptionPane.showMessageDialog(this, "Đã có voucher này");
+                return;
+            }
+            
             VCmodel vc = new VCmodel(ma, ten, ngaybatdau + gbd, ngayketthuc + gkt, money, status);
             boolean addVC = sv.add(vc);
 
@@ -291,6 +296,11 @@ public class ChiTietVoucher extends javax.swing.JDialog {
             String money = txtTien.getText();
             String status = "Chưa diễn ra";
 
+            if(sv.checkDuplicate(ten)){
+                JOptionPane.showMessageDialog(this, "Đã có voucher này");
+                return;
+            }
+            
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String ngaybatdau = sdf.format(nbd);
             String ngayketthuc = sdf.format(nkt);

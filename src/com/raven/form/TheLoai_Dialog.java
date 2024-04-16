@@ -161,6 +161,7 @@ public class TheLoai_Dialog extends javax.swing.JDialog {
 
             if(tlsv.checkDuplicate(ten)){
                 JOptionPane.showMessageDialog(this, "Đã có thể loại này");
+                return;
             }
             
             TheLoai nxb = new TheLoai(ma, ten, moTa, status);
@@ -187,6 +188,7 @@ public class TheLoai_Dialog extends javax.swing.JDialog {
 
             if(tlsv.checkDuplicate(ten)){
                 JOptionPane.showMessageDialog(this, "Đã có thể loại này");
+                return;
             }
             
             TheLoai nxb = new TheLoai(ma, ten, moTa, status);

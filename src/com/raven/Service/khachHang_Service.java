@@ -154,4 +154,21 @@ public class khachHang_Service {
         }
         return null;
     }
+
+    public boolean checkDuplicate(String tenKhach, String sdt) {
+        String sql = "SELECT COUNT(*) AS count FROM KhachHang WHERE ten_khach = ? AND sdt = ?";
+        try ( PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, tenKhach);
+            ps.setString(2, sdt);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

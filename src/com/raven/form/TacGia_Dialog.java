@@ -163,6 +163,7 @@ public class TacGia_Dialog extends javax.swing.JDialog {
 
             if(nxbsv.checkDuplicate(ten)){
                 JOptionPane.showMessageDialog(this, "Đã có tác giả này");
+                return;
             }
             
             TacGia nxb = new TacGia(ma, ten, moTa, status);
@@ -189,6 +190,7 @@ public class TacGia_Dialog extends javax.swing.JDialog {
 
             if(nxbsv.checkDuplicate(ten)){
                 JOptionPane.showMessageDialog(this, "Đã có tác giả này");
+                return;
             }
             
             TacGia nxb = new TacGia(ma, ten, moTa, status);
