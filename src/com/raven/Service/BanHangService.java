@@ -229,14 +229,15 @@ public class BanHangService {
     }
     public void updateOrder(int id, int thanhToan, double tongTien, Integer idVoucher){
         String sql = "UPDATE HoaDon SET thanh_toan = ?,tong_tien =? , id_voucher =? WHERE id = ?";
-        String sql1 = "UPDATE HoaDon SET thanh_toan = ?,tong_tien =? WHERE id = ?";
+        String sql1 = "UPDATE HoaDon SET thanh_toan = ?,tong_tien =?, trang_thai=?  WHERE id = ?";
        if (idVoucher == null) {
            try (Connection conn = DBConnect.getConnection()) {
                assert conn != null;
                try (PreparedStatement ps = conn.prepareStatement(sql1)) {
                    ps.setObject(1, thanhToan);
                    ps.setObject(2, tongTien);
-                   ps.setObject(3, id);
+                   ps.setObject(3, "Đã thanh toán");
+                   ps.setObject(4, id);
                    ps.executeUpdate();
                }
            } catch (SQLException e) {

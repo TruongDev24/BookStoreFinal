@@ -621,7 +621,7 @@ public class Form_BanHang extends javax.swing.JPanel {
 
     private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
         khachHang khachHang = (khachHang) listKhachHang.getSelectedItem();
-        HoaDon hoaDon = new HoaDon(AuthSession.uid, khachHang.getId(), Timestamp.valueOf(LocalDateTime.now()), "Ghi chú", 0, 1);
+        HoaDon hoaDon = new HoaDon(AuthSession.uid, khachHang.getId(), Timestamp.valueOf(LocalDateTime.now()), "Ghi chú", 0, "Đang chờ");
         banHangService.createOrder(hoaDon);
         tienGiam = 0;
         tienDu = 0;

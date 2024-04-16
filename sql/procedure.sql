@@ -24,6 +24,7 @@ BEGIN
     UPDATE [dbo].[ChiTietSach]
     SET [trang_thai] = CASE 
                             WHEN [so_luong] > 0 THEN N'Hiện'
-                            ELSE N'Ẩn'
+                            WHEN [so_luong] = 0 THEN N'Ẩn'
+                            ELSE N'Đã xóa'
                         END;
 END;

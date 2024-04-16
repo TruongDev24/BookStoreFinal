@@ -12,9 +12,9 @@ public class HoaDon {
     private int idKhuyenMai;
     private int idVoucher;
     private int thanhToan;
-    private int trangThai;
+    private String trangThai;
 
-    public HoaDon(int idTaiKhoan, int idKhach, Timestamp ngayTao, String ghiChu, int thanhToan, int trangThai) {
+    public HoaDon(int idTaiKhoan, int idKhach, Timestamp ngayTao, String ghiChu, int thanhToan, String trangThai) {
         this.idTaiKhoan = idTaiKhoan;
         this.idKhach = idKhach;
         this.ngayTao = ngayTao;
@@ -23,7 +23,7 @@ public class HoaDon {
         this.trangThai = trangThai;
     }
 
-    public HoaDon(int idTaiKhoan, int idKhach,Timestamp ngayTao, String ghiChu, double tongTien, int idKhuyenMai, int idVoucher, int thanhToan, int trangThai) {
+    public HoaDon(int idTaiKhoan, int idKhach,Timestamp ngayTao, String ghiChu, double tongTien, int idKhuyenMai, int idVoucher, int thanhToan, String trangThai) {
         this.idTaiKhoan = idTaiKhoan;
         this.idKhach = idKhach;
         this.ngayTao = ngayTao;
@@ -99,11 +99,11 @@ public class HoaDon {
         this.thanhToan = thanhToan;
     }
 
-    public int getTrangThai() {
+    public String getTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(int trangThai) {
+    public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
 }
