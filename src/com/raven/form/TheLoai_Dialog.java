@@ -21,7 +21,7 @@ public class TheLoai_Dialog extends javax.swing.JDialog {
     private ActionType2 actionType;
     private NXB_TGgetAll sv = new NXB_TGgetAll();
     private List<TheLoai> list = sv.getAllTL();
-    private TheLoaiSV nxbsv = new TheLoaiSV();
+    private TheLoaiSV tlsv = new TheLoaiSV();
     /**
      * Creates new form TheLoai_Dialog
      */
@@ -159,8 +159,12 @@ public class TheLoai_Dialog extends javax.swing.JDialog {
                 status = "Ngừng hoạt động";
             }
 
+            if(tlsv.checkDuplicate(ten)){
+                JOptionPane.showMessageDialog(this, "Đã có thể loại này");
+            }
+            
             TheLoai nxb = new TheLoai(ma, ten, moTa, status);
-            boolean addTheLoai = nxbsv.add(nxb);
+            boolean addTheLoai = tlsv.add(nxb);
             if (addTheLoai) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công");
                 this.dispose();
@@ -181,8 +185,12 @@ public class TheLoai_Dialog extends javax.swing.JDialog {
                 status = "Ngừng hoạt động";
             }
 
+            if(tlsv.checkDuplicate(ten)){
+                JOptionPane.showMessageDialog(this, "Đã có thể loại này");
+            }
+            
             TheLoai nxb = new TheLoai(ma, ten, moTa, status);
-            boolean addTheLoai = nxbsv.update(nxb);
+            boolean addTheLoai = tlsv.update(nxb);
             if (addTheLoai) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công");
                 this.dispose();
@@ -204,7 +212,7 @@ public class TheLoai_Dialog extends javax.swing.JDialog {
         }
 
         TheLoai nxb = new TheLoai(ma, ten, moTa, status);
-        boolean addTheLoai = nxbsv.delete(nxb);
+        boolean addTheLoai = tlsv.delete(nxb);
         if (addTheLoai) {
             JOptionPane.showMessageDialog(this, "Xóa thành công");
             this.dispose();

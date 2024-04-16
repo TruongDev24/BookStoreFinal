@@ -158,6 +158,10 @@ public class NXB_Dialog extends javax.swing.JDialog {
                 status = "Ngừng hoạt động";
             }
 
+            if(nxbsv.checkDuplicate(ten)){
+                JOptionPane.showMessageDialog(this, "Đã có nhà xuất bản này");
+            }
+            
             NXB nxb = new NXB(ma, ten, moTa, status);
             boolean addNXB = nxbsv.add(nxb);
             if (addNXB) {
@@ -180,6 +184,10 @@ public class NXB_Dialog extends javax.swing.JDialog {
                 status = "Ngừng hoạt động";
             }
 
+            if(nxbsv.checkDuplicate(ten)){
+                JOptionPane.showMessageDialog(this, "Đã có nhà xuất bản này");
+            }
+            
             NXB nxb = new NXB(ma, ten, moTa, status);
             boolean addNXB = nxbsv.update(nxb);
             if (addNXB) {

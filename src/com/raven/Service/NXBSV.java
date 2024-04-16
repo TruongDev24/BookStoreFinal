@@ -58,4 +58,19 @@ public class NXBSV {
             return false;
         }
     }
+    
+    public boolean checkDuplicate(String tenTheLoai) {
+        String sql = "SELECT COUNT(*) AS count FROM NhaXuatBan WHERE ten_nxb = ? AND trang_thai != 'Đã xóa'";
+        try ( PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setObject(1, tenTheLoai);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

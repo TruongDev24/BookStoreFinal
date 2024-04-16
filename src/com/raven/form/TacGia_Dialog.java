@@ -161,6 +161,10 @@ public class TacGia_Dialog extends javax.swing.JDialog {
                 status = "Ngừng hoạt động";
             }
 
+            if(nxbsv.checkDuplicate(ten)){
+                JOptionPane.showMessageDialog(this, "Đã có tác giả này");
+            }
+            
             TacGia nxb = new TacGia(ma, ten, moTa, status);
             boolean addNXB = nxbsv.add(nxb);
             if (addNXB) {
@@ -183,6 +187,10 @@ public class TacGia_Dialog extends javax.swing.JDialog {
                 status = "Ngừng hoạt động";
             }
 
+            if(nxbsv.checkDuplicate(ten)){
+                JOptionPane.showMessageDialog(this, "Đã có tác giả này");
+            }
+            
             TacGia nxb = new TacGia(ma, ten, moTa, status);
             boolean addNXB = nxbsv.update(nxb);
             if (addNXB) {

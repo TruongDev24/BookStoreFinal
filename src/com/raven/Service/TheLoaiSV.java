@@ -6,15 +6,14 @@ package com.raven.Service;
 
 import com.raven.Model2.TheLoai;
 import com.raven.dbConnect.DBConnect;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  *
  * @author LENOVO
  */
 public class TheLoaiSV {
+
     private Connection conn = DBConnect.getConnection();
 
     public boolean add(TheLoai tg) {
@@ -58,4 +57,20 @@ public class TheLoaiSV {
             return false;
         }
     }
+
+    public boolean checkDuplicate(String tenTheLoai) {
+        String sql = "SELECT COUNT(*) AS count FROM TheLoai WHERE ten_theloai = ? AND trang_thai != 'Đã xóa'";
+        try ( PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setObject(1, tenTheLoai);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
