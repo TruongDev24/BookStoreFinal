@@ -37,6 +37,9 @@ public class NXB_Dialog extends javax.swing.JDialog {
         }
     }
 
+    private boolean checkNull(){
+        return !txtTen.getText().trim().isEmpty();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -142,6 +145,9 @@ public class NXB_Dialog extends javax.swing.JDialog {
     private void luuBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_luuBtnActionPerformed
         // TODO add your handling code here:
         if (actionType == ActionType.ADD) {
+            if(!checkNull()){
+                return;
+            }
             Integer ma = 0;
             String ten = txtTen.getText();
             String moTa = txtMoTa.getText();
@@ -161,6 +167,9 @@ public class NXB_Dialog extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Thêm thất bại");
             }
         } else if (actionType == ActionType.EDIT) {
+            if(!checkNull()){
+                return;
+            }
             Integer ma = Integer.parseInt(txtID.getText());
             String ten = txtTen.getText();
             String moTa = txtMoTa.getText();

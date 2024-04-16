@@ -68,7 +68,7 @@ public class Form_QLNguoiDung extends javax.swing.JPanel {
                 vaitro = "Staff";
             }
             dtm.addRow(new Object[]{
-                s.getCccd(),
+                s.getId(),
                 s.getTen_nv(),
                 gioiTinh,
                 s.getUsername(),
@@ -159,7 +159,7 @@ public class Form_QLNguoiDung extends javax.swing.JPanel {
 
             },
             new String [] {
-                "cccd", "Tên", "Giới tính", "username", "password", "Vai trò", "Trạng thái"
+                "Id", "Tên", "Giới tính", "username", "password", "Vai trò", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -184,9 +184,9 @@ public class Form_QLNguoiDung extends javax.swing.JPanel {
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1055, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1048, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,8 +194,8 @@ public class Form_QLNguoiDung extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/search.png"))); // NOI18N
@@ -222,7 +222,7 @@ public class Form_QLNguoiDung extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(19, 19, 19)
                     .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(17, Short.MAX_VALUE)))
+                    .addContainerGap(21, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,7 +242,7 @@ public class Form_QLNguoiDung extends javax.swing.JPanel {
                 .addContainerGap(652, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(57, Short.MAX_VALUE)
+                    .addContainerGap(60, Short.MAX_VALUE)
                     .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(16, 16, 16)))
         );
@@ -283,22 +283,26 @@ public class Form_QLNguoiDung extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        int selectedRow = table.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn người dùng cần xóa.");
-            return;
-        }
-        int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa người dùng này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            String cccdToDelete = table.getValueAt(selectedRow, 0).toString();
-            boolean success = nvService.delete(cccdToDelete);
-            if (success) {
-                listNV = nvService.getAll_NV();
-                ShowData(listNV);
-                JOptionPane.showMessageDialog(null, "Đã xóa người dùng thành công.");
-            } else {
-                JOptionPane.showMessageDialog(null, "Xóa người dùng không thành công. Vui lòng thử lại.");
+        int selectedIndex = table.getSelectedRow();
+        if (selectedIndex != -1) {
+            String id = table.getValueAt(selectedIndex, 0).toString();
+
+            int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa người dùng này?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Set trạng thái của nhân viên thành "Đã nghỉ"
+                boolean updateStatus = nvService.updateStatus(id, "Đã xóa");
+
+                if (updateStatus) {
+                    JOptionPane.showMessageDialog(this, "Xóa thành công.");
+                    listNV = nvService.getAll_NV();
+                    ShowData(listNV);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xóa thất bại.");
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một nhân viên để xóa.");
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 

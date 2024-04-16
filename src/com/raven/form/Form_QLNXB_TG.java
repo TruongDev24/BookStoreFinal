@@ -10,8 +10,12 @@ import com.raven.Model2.TacGia;
 import com.raven.Model2.TheLoai;
 import com.raven.Service.NXB_TGgetAll;
 import com.raven.form.NXB_Dialog.ActionType;
+import com.raven.form.TacGia_Dialog.ActionType1;
+import com.raven.form.TheLoai_Dialog.ActionType2;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -59,30 +63,30 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
         xoaNXBbtn = new javax.swing.JButton();
         suaNXBbtn = new javax.swing.JButton();
         themNXBbtn = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        CbxNXB = new javax.swing.JComboBox<>();
+        searchNXB = new javax.swing.JTextField();
         panelBorder1 = new com.raven.swing.PanelBorder();
         jLabel2 = new javax.swing.JLabel();
         spTable = new javax.swing.JScrollPane();
         tbNXB = new com.raven.swing.Table();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
+        xoaTG = new javax.swing.JButton();
+        suaTG = new javax.swing.JButton();
+        themMoiTG = new javax.swing.JButton();
+        CbxTG = new javax.swing.JComboBox<>();
+        searchTG = new javax.swing.JTextField();
         panelBorder2 = new com.raven.swing.PanelBorder();
         jLabel3 = new javax.swing.JLabel();
         spTable1 = new javax.swing.JScrollPane();
         tbTG = new com.raven.swing.Table();
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jTextField5 = new javax.swing.JTextField();
+        xoaTL = new javax.swing.JButton();
+        suaTL = new javax.swing.JButton();
+        themTL = new javax.swing.JButton();
+        CbxTL = new javax.swing.JComboBox<>();
+        searchTL = new javax.swing.JTextField();
         panelBorder3 = new com.raven.swing.PanelBorder();
         jLabel11 = new javax.swing.JLabel();
         spTable2 = new javax.swing.JScrollPane();
@@ -119,9 +123,19 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CbxNXB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "A-Z", "Z-A" }));
+        CbxNXB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CbxNXBActionPerformed(evt);
+            }
+        });
 
-        jTextField1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        searchNXB.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        searchNXB.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchNXBKeyReleased(evt);
+            }
+        });
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -181,9 +195,9 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
                 .addGap(31, 31, 31)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchNXB, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CbxNXB, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
                 .addComponent(themNXBbtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -207,8 +221,8 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchNXB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CbxNXB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(xoaNXBbtn)
                             .addComponent(suaNXBbtn)
                             .addComponent(themNXBbtn))))
@@ -222,34 +236,49 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Nhà xuất bản", jPanel1);
 
-        jButton4.setBackground(new java.awt.Color(18, 64, 118));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(249, 232, 151));
-        jButton4.setText("Xóa");
-
-        jButton5.setBackground(new java.awt.Color(18, 64, 118));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(249, 232, 151));
-        jButton5.setText("Sửa");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        xoaTG.setBackground(new java.awt.Color(18, 64, 118));
+        xoaTG.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        xoaTG.setForeground(new java.awt.Color(249, 232, 151));
+        xoaTG.setText("Xóa");
+        xoaTG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                xoaTGActionPerformed(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(18, 64, 118));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(249, 232, 151));
-        jButton6.setText("Thêm mới");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        suaTG.setBackground(new java.awt.Color(18, 64, 118));
+        suaTG.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        suaTG.setForeground(new java.awt.Color(249, 232, 151));
+        suaTG.setText("Sửa");
+        suaTG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                suaTGActionPerformed(evt);
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        themMoiTG.setBackground(new java.awt.Color(18, 64, 118));
+        themMoiTG.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        themMoiTG.setForeground(new java.awt.Color(249, 232, 151));
+        themMoiTG.setText("Thêm mới");
+        themMoiTG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                themMoiTGActionPerformed(evt);
+            }
+        });
 
-        jTextField2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        CbxTG.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "A-Z", "Z-A" }));
+        CbxTG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CbxTGActionPerformed(evt);
+            }
+        });
+
+        searchTG.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        searchTG.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchTGKeyReleased(evt);
+            }
+        });
 
         panelBorder2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -309,15 +338,15 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
                 .addGap(31, 31, 31)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchTG, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CbxTG, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
-                .addComponent(jButton6)
+                .addComponent(themMoiTG)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
+                .addComponent(suaTG)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(xoaTG)
                 .addGap(27, 27, 27))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
@@ -335,11 +364,11 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4)
-                            .addComponent(jButton5)
-                            .addComponent(jButton6))))
+                            .addComponent(searchTG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CbxTG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(xoaTG)
+                            .addComponent(suaTG)
+                            .addComponent(themMoiTG))))
                 .addContainerGap(621, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -350,34 +379,49 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Tác giả", jPanel2);
 
-        jButton7.setBackground(new java.awt.Color(18, 64, 118));
-        jButton7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(249, 232, 151));
-        jButton7.setText("Xóa");
-
-        jButton8.setBackground(new java.awt.Color(18, 64, 118));
-        jButton8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(249, 232, 151));
-        jButton8.setText("Sửa");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        xoaTL.setBackground(new java.awt.Color(18, 64, 118));
+        xoaTL.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        xoaTL.setForeground(new java.awt.Color(249, 232, 151));
+        xoaTL.setText("Xóa");
+        xoaTL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                xoaTLActionPerformed(evt);
             }
         });
 
-        jButton9.setBackground(new java.awt.Color(18, 64, 118));
-        jButton9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(249, 232, 151));
-        jButton9.setText("Thêm mới");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        suaTL.setBackground(new java.awt.Color(18, 64, 118));
+        suaTL.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        suaTL.setForeground(new java.awt.Color(249, 232, 151));
+        suaTL.setText("Sửa");
+        suaTL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                suaTLActionPerformed(evt);
             }
         });
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        themTL.setBackground(new java.awt.Color(18, 64, 118));
+        themTL.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        themTL.setForeground(new java.awt.Color(249, 232, 151));
+        themTL.setText("Thêm mới");
+        themTL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                themTLActionPerformed(evt);
+            }
+        });
 
-        jTextField5.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        CbxTL.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "A-Z", "Z-A" }));
+        CbxTL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CbxTLActionPerformed(evt);
+            }
+        });
+
+        searchTL.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        searchTL.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchTLKeyReleased(evt);
+            }
+        });
 
         panelBorder3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -437,15 +481,15 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
                 .addGap(31, 31, 31)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchTL, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CbxTL, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
-                .addComponent(jButton9)
+                .addComponent(themTL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton8)
+                .addComponent(suaTL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7)
+                .addComponent(xoaTL)
                 .addGap(27, 27, 27))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
@@ -463,11 +507,11 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton7)
-                            .addComponent(jButton8)
-                            .addComponent(jButton9))))
+                            .addComponent(searchTL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CbxTL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(xoaTL)
+                            .addComponent(suaTL)
+                            .addComponent(themTL))))
                 .addContainerGap(621, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -512,21 +556,49 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
         showData3(listNXB);
     }//GEN-LAST:event_themNXBbtnActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void suaTGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suaTGActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+        int row = tbTG.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một hàng để sửa", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        TacGia_Dialog nxb = new TacGia_Dialog(null, true, ActionType1.EDIT);
+        nxb.detail(row);
+        nxb.setVisible(true);
+        listTG = sv.getAllTG();
+        showData1(listTG);
+    }//GEN-LAST:event_suaTGActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void themMoiTGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_themMoiTGActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+        TacGia_Dialog tg = new TacGia_Dialog(null, true, ActionType1.ADD);
+        tg.setVisible(true);
+        listTG = sv.getAllTG();
+        showData1(listTG);
+    }//GEN-LAST:event_themMoiTGActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void suaTLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suaTLActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+        int row = tbTL.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một hàng để sửa", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        TheLoai_Dialog nxb = new TheLoai_Dialog(null, true, ActionType2.EDIT);
+        nxb.detail(row);
+        nxb.setVisible(true);
+        listTL = sv.getAllTL();
+        showData2(listTL);
+    }//GEN-LAST:event_suaTLActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void themTLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_themTLActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+        TheLoai_Dialog tg = new TheLoai_Dialog(null, true, ActionType2.ADD);
+        tg.setVisible(true);
+        listTL = sv.getAllTL();
+        showData2(listTL);
+    }//GEN-LAST:event_themTLActionPerformed
 
     private void xoaNXBbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xoaNXBbtnActionPerformed
         // TODO add your handling code here:
@@ -545,6 +617,109 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
         listNXB = sv.getAllNXB();
         showData3(listNXB);
     }//GEN-LAST:event_xoaNXBbtnActionPerformed
+
+    private void xoaTGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xoaTGActionPerformed
+        // TODO add your handling code here:
+        int row = tbTG.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một hàng để xóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        if (choice != JOptionPane.YES_OPTION) {
+            return; // Nếu người dùng không đồng ý xóa, thoát khỏi phương thức
+        }
+        TacGia_Dialog nxb = new TacGia_Dialog(null, true, ActionType1.EDIT);
+        nxb.detail(row);
+        nxb.delete();
+        listTG = sv.getAllTG();
+        showData1(listTG);
+    }//GEN-LAST:event_xoaTGActionPerformed
+
+    private void xoaTLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xoaTLActionPerformed
+        // TODO add your handling code here:
+        int row = tbTL.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một hàng để xóa", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        if (choice != JOptionPane.YES_OPTION) {
+            return; // Nếu người dùng không đồng ý xóa, thoát khỏi phương thức
+        }
+        TheLoai_Dialog nxb = new TheLoai_Dialog(null, true, ActionType2.EDIT);
+        nxb.detail(row);
+        nxb.delete();
+        listTL = sv.getAllTL();
+        showData2(listTL);
+    }//GEN-LAST:event_xoaTLActionPerformed
+
+    private void searchNXBKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchNXBKeyReleased
+        // TODO add your handling code here:
+        String keyword = searchNXB.getText().trim();
+
+        // Thực hiện tìm kiếm trong danh sách NXB dựa trên từ khóa
+        List<NXB> result = listNXB.stream()
+                .filter(nxb -> nxb.getTen().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+
+        // Hiển thị kết quả tìm kiếm trên bảng
+        showData3(result);
+    }//GEN-LAST:event_searchNXBKeyReleased
+
+    private void searchTGKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTGKeyReleased
+        // TODO add your handling code here:
+        String keyword = searchTG.getText().trim();
+        List<TacGia> result = listTG.stream()
+                .filter(tg -> tg.getTen().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+        showData1(result);
+    }//GEN-LAST:event_searchTGKeyReleased
+
+    private void searchTLKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTLKeyReleased
+        // TODO add your handling code here:
+        String keyword = searchTL.getText().trim();
+        List<TheLoai> result = listTL.stream()
+                .filter(tl -> tl.getTen().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+        showData2(result);
+    }//GEN-LAST:event_searchTLKeyReleased
+
+    private void CbxNXBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbxNXBActionPerformed
+        // TODO add your handling code here:
+        if (CbxNXB.getSelectedItem().equals(" ")) {
+            listNXB = sv.getAllNXB();
+            showData3(listNXB);
+        } else if (CbxNXB.getSelectedItem().equals("A-Z")) {
+            AZNXB(listNXB);
+        } else if (CbxNXB.getSelectedItem().equals("Z-A")) {
+            ZANXB(listNXB);
+        }
+    }//GEN-LAST:event_CbxNXBActionPerformed
+
+    private void CbxTGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbxTGActionPerformed
+        // TODO add your handling code here:
+        if (CbxTG.getSelectedItem().equals(" ")) {
+            listTG = sv.getAllTG();
+            showData1(listTG);
+        } else if (CbxTG.getSelectedItem().equals("A-Z")) {
+            AZTG(listTG);
+        } else if (CbxTG.getSelectedItem().equals("Z-A")) {
+            ZATG(listTG);
+        }
+    }//GEN-LAST:event_CbxTGActionPerformed
+
+    private void CbxTLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbxTLActionPerformed
+        // TODO add your handling code here:
+        if (CbxTL.getSelectedItem().equals(" ")) {
+            listTL = sv.getAllTL();
+            showData2(listTL);
+        } else if (CbxTL.getSelectedItem().equals("A-Z")) {
+            AZTL(listTL);
+        } else if (CbxTL.getSelectedItem().equals("Z-A")) {
+            ZATL(listTL);
+        }
+    }//GEN-LAST:event_CbxTLActionPerformed
 
     public void showData1(List<TacGia> listVC) {
         dtm1.setRowCount(0);
@@ -566,16 +741,64 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
             c.getId(), c.getTen(), c.getMoTa(), c.getTrangThai()
         }));
     }
+
+    public void AZNXB(List<NXB> listVC) {
+        // Sắp xếp danh sách theo tên NXB từ A đến Z
+        Collections.sort(listVC, (nxb1, nxb2) -> nxb1.getTen().compareToIgnoreCase(nxb2.getTen()));
+        dtm3.setRowCount(0);
+        listVC.forEach(c -> dtm3.addRow(new Object[]{
+            c.getId(), c.getTen(), c.getMoTa(), c.getTrangThai()
+        }));
+    }
+
+    public void AZTG(List<TacGia> listVC) {
+        // Sắp xếp danh sách theo tên Tác giả từ A đến Z
+        Collections.sort(listVC, (tg1, tg2) -> tg1.getTen().compareToIgnoreCase(tg2.getTen()));
+        dtm1.setRowCount(0);
+        listVC.forEach(c -> dtm1.addRow(new Object[]{
+            c.getId(), c.getTen(), c.getMoTa(), c.getTrangThai()
+        }));
+    }
+
+    public void AZTL(List<TheLoai> listVC) {
+        // Sắp xếp danh sách theo tên Thể loại từ A đến Z
+        Collections.sort(listVC, (tl1, tl2) -> tl1.getTen().compareToIgnoreCase(tl2.getTen()));
+        dtm2.setRowCount(0);
+        listVC.forEach(c -> dtm2.addRow(new Object[]{
+            c.getId(), c.getTen(), c.getMoTa(), c.getTrangThai()
+        }));
+    }
+
+    public void ZANXB(List<NXB> listVC) {
+        // Sắp xếp danh sách theo tên NXB từ Z đến A
+        Collections.sort(listVC, (nxb1, nxb2) -> nxb2.getTen().compareToIgnoreCase(nxb1.getTen()));
+        dtm3.setRowCount(0);
+        listVC.forEach(c -> dtm3.addRow(new Object[]{
+            c.getId(), c.getTen(), c.getMoTa(), c.getTrangThai()
+        }));
+    }
+
+    public void ZATL(List<TheLoai> listVC) {
+        // Sắp xếp danh sách theo tên Thể loại từ Z đến A
+        Collections.sort(listVC, (tl1, tl2) -> tl2.getTen().compareToIgnoreCase(tl1.getTen()));
+        dtm2.setRowCount(0);
+        listVC.forEach(c -> dtm2.addRow(new Object[]{
+            c.getId(), c.getTen(), c.getMoTa(), c.getTrangThai()
+        }));
+    }
+
+    public void ZATG(List<TacGia> listVC) {
+        // Sắp xếp danh sách theo tên Tác giả từ Z đến A
+        Collections.sort(listVC, (tg1, tg2) -> tg2.getTen().compareToIgnoreCase(tg1.getTen()));
+        dtm1.setRowCount(0);
+        listVC.forEach(c -> dtm1.addRow(new Object[]{
+            c.getId(), c.getTen(), c.getMoTa(), c.getTrangThai()
+        }));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> CbxNXB;
+    private javax.swing.JComboBox<String> CbxTG;
+    private javax.swing.JComboBox<String> CbxTL;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -586,20 +809,26 @@ public final class Form_QLNXB_TG extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField5;
     private com.raven.swing.PanelBorder panelBorder1;
     private com.raven.swing.PanelBorder panelBorder2;
     private com.raven.swing.PanelBorder panelBorder3;
+    private javax.swing.JTextField searchNXB;
+    private javax.swing.JTextField searchTG;
+    private javax.swing.JTextField searchTL;
     private javax.swing.JScrollPane spTable;
     private javax.swing.JScrollPane spTable1;
     private javax.swing.JScrollPane spTable2;
     private javax.swing.JButton suaNXBbtn;
+    private javax.swing.JButton suaTG;
+    private javax.swing.JButton suaTL;
     private com.raven.swing.Table tbNXB;
     private com.raven.swing.Table tbTG;
     private com.raven.swing.Table tbTL;
+    private javax.swing.JButton themMoiTG;
     private javax.swing.JButton themNXBbtn;
+    private javax.swing.JButton themTL;
     private javax.swing.JButton xoaNXBbtn;
+    private javax.swing.JButton xoaTG;
+    private javax.swing.JButton xoaTL;
     // End of variables declaration//GEN-END:variables
 }

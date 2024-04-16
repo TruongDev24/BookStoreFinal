@@ -13,6 +13,8 @@ import java.util.List;
 import com.raven.Model2.khachHang;
 import java.sql.*;
 import com.raven.dbConnect.DBConnect;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -23,7 +25,7 @@ public class khachHang_Service {
     Connection con = DBConnect.getConnection();
 
     public List<khachHang> getAll_KH() {
-        String sql = "select*from khachHang";
+        String sql = "select*from khachHang where trang_thai <> N'Đã xóa';";
         try ( PreparedStatement prs = con.prepareStatement(sql)) {
             ResultSet rs = prs.executeQuery();
             List<khachHang> ppp = new ArrayList<>();
@@ -49,7 +51,12 @@ public class khachHang_Service {
         try ( PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, kh.getTen_khach());
             ps.setObject(2, kh.getSdt());
-            ps.setObject(3, kh.getNgay_them());
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            // Định dạng ngày giờ
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            // Chuyển đổi ngày giờ thành chuỗi
+            String ngayThem = currentDateTime.format(formatter);
+            ps.setObject(3, ngayThem);
             ps.setObject(4, kh.getGioi_tinh());
             ps.setObject(5, kh.getTrang_thai());
             ps.executeUpdate();
@@ -75,14 +82,13 @@ public class khachHang_Service {
 
     public boolean update(khachHang kh) {
         int check = 0;
-        String sql = "Update KhachHang set ten_khach=?,sdt=?,ngay_them=?,gioi_tinh=?,trang_thai=? where id=?";
+        String sql = "Update KhachHang set ten_khach=?,sdt=?,gioi_tinh=?,trang_thai=? where id=?";
         try ( PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, kh.getTen_khach());
             ps.setObject(2, kh.getSdt());
-            ps.setObject(3, kh.getNgay_them());
-            ps.setObject(4, kh.getGioi_tinh());
-            ps.setObject(5, kh.getTrang_thai());
-            ps.setObject(6, kh.getId());
+            ps.setObject(3, kh.getGioi_tinh());
+            ps.setObject(4, kh.getTrang_thai());
+            ps.setObject(5, kh.getId());
             check = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,7 +96,7 @@ public class khachHang_Service {
         return check > 0;
     }
 
-    public boolean delete(int Id) {
+    public boolean delete(String Id) {
         int check = 0;
         String sql = "delete from KhachHang where id=?";
         try ( PreparedStatement prs = con.prepareStatement(sql)) {

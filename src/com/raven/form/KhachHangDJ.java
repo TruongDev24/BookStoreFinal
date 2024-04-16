@@ -40,7 +40,7 @@ public class KhachHangDJ extends javax.swing.JDialog {
     }
     
     private boolean validateFields() {
-        if (txtTen.getText().isEmpty() || txtSDT.getText().isEmpty() || txtNgay.getDate() == null
+        if (txtTen.getText().isEmpty() || txtSDT.getText().isEmpty()
                 || (!rdo1.isSelected() && !rdo2.isSelected()) || cbxTrangThai.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin.");
             return false;
@@ -96,15 +96,14 @@ public class KhachHangDJ extends javax.swing.JDialog {
 
         jRadioButton1 = new javax.swing.JRadioButton();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        txtID = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         lbName = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
         txtTen = new javax.swing.JTextField();
         txtSDT = new javax.swing.JTextField();
         txtNgay = new com.toedter.calendar.JDateChooser();
@@ -116,12 +115,16 @@ public class KhachHangDJ extends javax.swing.JDialog {
 
         jRadioButton1.setText("jRadioButton1");
 
+        txtID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIDActionPerformed(evt);
+            }
+        });
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lbName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbName.setText("Thêm mới khách hàng");
-
-        jLabel1.setText("ID:");
 
         jLabel2.setText("Tên khách:");
 
@@ -132,6 +135,8 @@ public class KhachHangDJ extends javax.swing.JDialog {
         jLabel5.setText("Gioi tính:");
 
         jLabel6.setText("Trạng thái:");
+
+        txtNgay.setEnabled(false);
 
         buttonGroup1.add(rdo1);
         rdo1.setSelected(true);
@@ -160,14 +165,17 @@ public class KhachHangDJ extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(11, 11, 11)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel6)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(jLabel4)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -177,8 +185,7 @@ public class KhachHangDJ extends javax.swing.JDialog {
                                                 .addGap(18, 18, 18)
                                                 .addComponent(rdo2))
                                             .addComponent(cbxTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 216, Short.MAX_VALUE))
-                                    .addComponent(txtID)
+                                        .addGap(0, 220, Short.MAX_VALUE))
                                     .addComponent(txtTen)
                                     .addComponent(txtSDT)
                                     .addComponent(txtNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -200,10 +207,6 @@ public class KhachHangDJ extends javax.swing.JDialog {
                 .addComponent(lbName)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -211,7 +214,7 @@ public class KhachHangDJ extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
@@ -223,7 +226,7 @@ public class KhachHangDJ extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(cbxTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem)
                     .addComponent(btnClear))
@@ -256,14 +259,14 @@ public class KhachHangDJ extends javax.swing.JDialog {
         } else if (actionType == ActionType.ADD) {
             String tenKH = txtTen.getText();
             String sdt = txtSDT.getText();
-            Date ngay = txtNgay.getDate();
+            String dangKy = "";
             String trangThai = (String) cbxTrangThai.getSelectedItem();
             String gioiTinhString = "";
             int gioiTinh = parseGenderToInt(gioiTinhString);
             khachHang newKH = new khachHang(
                     tenKH,
                     sdt,
-                    new SimpleDateFormat("yyyy-MM-dd").format(ngay),
+                    dangKy,
                     gioiTinh,
                     trangThai);
             boolean addResult = kh.add(newKH);
@@ -277,14 +280,14 @@ public class KhachHangDJ extends javax.swing.JDialog {
             Integer id = Integer.parseInt(txtID.getText());
             String tenKH = txtTen.getText();
             String sdt = txtSDT.getText();
-            Date ngay = txtNgay.getDate();
+            String dangKy = "";
             String trangThai = (String) cbxTrangThai.getSelectedItem();
             String gioiTinhString = "";
             int gioiTinh = parseGenderToInt(gioiTinhString);
             khachHang editedND = new khachHang(id,
                     tenKH,
                     sdt,
-                    new SimpleDateFormat("yyyy-MM-dd").format(ngay),
+                    dangKy,
                     gioiTinh,
                     trangThai);
             boolean editResult = kh.update(editedND);
@@ -296,6 +299,10 @@ public class KhachHangDJ extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -344,7 +351,6 @@ public class KhachHangDJ extends javax.swing.JDialog {
     private javax.swing.JButton btnThem;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbxTrangThai;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

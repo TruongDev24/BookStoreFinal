@@ -12,6 +12,8 @@ import java.util.List;
 import com.raven.Model2.nguoiDung;
 import java.sql.*;
 import com.raven.dbConnect.DBConnect;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author LENOVO
@@ -20,7 +22,7 @@ public class NguoiDung_Service {
     Connection con = DBConnect.getConnection();
 
     public List<nguoiDung> getAll_NV() {
-        String sql = "select*from NhanVien";
+        String sql = "select*from NhanVien where trang_thai <> N'Đã xóa'";
         try (PreparedStatement prs = con.prepareStatement(sql)) {
             ResultSet rs = prs.executeQuery();
             List<nguoiDung> ppp = new ArrayList<>();
@@ -56,7 +58,12 @@ public class NguoiDung_Service {
             ps.setObject(4, nv.getHinh_anh());
             ps.setObject(5, nv.getEmail());
             ps.setObject(6, nv.getCccd());
-            ps.setObject(7, nv.getNgay_dangki());
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            // Định dạng ngày giờ
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            // Chuyển đổi ngày giờ thành chuỗi
+            String ngayThem = currentDateTime.format(formatter);
+            ps.setObject(7, ngayThem);
             ps.setObject(8, nv.getGioi_tinh());
             ps.setObject(9, nv.getSdt());
             ps.setObject(10, nv.getNgay_sinh());
@@ -83,27 +90,39 @@ public class NguoiDung_Service {
     }
     public boolean updateNhanVien(nguoiDung nv) {
         String sql = "UPDATE NhanVien SET username=?,"
-                + " password=?, ten_nv=?, hinh_anh=?, email=?, ngay_dangki=?,"
-                + " gioi_tinh=?, sdt=?, ngay_sinh=?, vai_tro=?, trang_thai=? WHERE cccd=?";
+                + " password=?, ten_nv=?, hinh_anh=?, email=?,"
+                + " gioi_tinh=?, sdt=?, ngay_sinh=?, vai_tro=?, trang_thai=?, cccd=? where id=?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, nv.getUsername());
             ps.setObject(2, nv.getPassword());
             ps.setObject(3, nv.getTen_nv());
             ps.setObject(4, nv.getHinh_anh());
             ps.setObject(5, nv.getEmail());
-            ps.setObject(6, nv.getNgay_dangki());
-            ps.setObject(7, nv.getGioi_tinh());
-            ps.setObject(8, nv.getSdt());
-            ps.setObject(9, nv.getNgay_sinh());
-            ps.setObject(10, nv.getVaiTro());
-            ps.setObject(11, nv.getTrang_thai());
-            ps.setObject(12, nv.getCccd());
+            ps.setObject(6, nv.getGioi_tinh());
+            ps.setObject(7, nv.getSdt());
+            ps.setObject(8, nv.getNgay_sinh());
+            ps.setObject(9, nv.getVaiTro());
+            ps.setObject(10, nv.getTrang_thai());
+            ps.setObject(11, nv.getCccd());
+            ps.setObject(12, nv.getId());
             int updatedRows = ps.executeUpdate();
             return updatedRows > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
+    }
+    public boolean updateStatus(String cccd, String newStatus) {
+        int check = 0;
+        String sql = "update NhanVien set trang_thai=? where cccd=?";
+        try (PreparedStatement prs = con.prepareStatement(sql)) {
+            prs.setObject(1, newStatus);
+            prs.setObject(2, cccd);
+            check = prs.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return check > 0;
     }
     public List<nguoiDung> searchByKeyword(String keyword) {
         String sql = "SELECT * FROM NhanVien WHERE ten_nv LIKE ? OR cccd LIKE ?";

@@ -50,7 +50,7 @@ public class NguoiDungDJ extends javax.swing.JDialog {
 
     private boolean validateFields() {
         if (txtCccd.getText().isEmpty() || txtTen.getText().isEmpty() || txtUsername.getText().isEmpty() || txtEmail.getText().isEmpty()
-                || txtSdt.getText().isEmpty() || txtDangKy.getDate() == null || txtNgaySinh.getDate() == null
+                || txtSdt.getText().isEmpty() || txtNgaySinh.getDate() == null
                 || txtPassword.getPassword().length == 0 || lblHinhAnh.getText().isEmpty()
                 || (!rdo1.isSelected() && !rdo2.isSelected()) || cbxVaiTro.getSelectedItem() == null || cbxTrangThai.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin.");
@@ -116,6 +116,7 @@ public class NguoiDungDJ extends javax.swing.JDialog {
             // Lấy người dùng từ danh sách dựa trên chỉ số index
             nguoiDung nd = list.get(index);
             // Thiết lập các giá trị của các thành phần giao diện người dùng để hiển thị thông tin chi tiết
+            txtID.setText(nd.getId());
             txtCccd.setText(String.valueOf(nd.getCccd()));
             txtTen.setText(nd.getTen_nv());
             txtUsername.setText(nd.getUsername());
@@ -154,6 +155,7 @@ public class NguoiDungDJ extends javax.swing.JDialog {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        txtID = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         txtSdt = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -183,6 +185,8 @@ public class NguoiDungDJ extends javax.swing.JDialog {
         txtConfirmPass = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         lbName = new javax.swing.JLabel();
+
+        txtID.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -238,6 +242,8 @@ public class NguoiDungDJ extends javax.swing.JDialog {
 
         jLabel6.setText("Ngày sinh:");
 
+        txtDangKy.setEnabled(false);
+
         cbxVaiTro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff" }));
 
         jLabel12.setText("Confirm Password:");
@@ -256,10 +262,10 @@ public class NguoiDungDJ extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(jLabel4)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel6)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -291,7 +297,7 @@ public class NguoiDungDJ extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 21, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(cbxVaiTro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -316,13 +322,13 @@ public class NguoiDungDJ extends javax.swing.JDialog {
                                     .addComponent(jLabel5)
                                     .addComponent(txtSdt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(txtDangKy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(txtNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtDangKy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(24, 24, 24)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNgaySinh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -378,7 +384,7 @@ public class NguoiDungDJ extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 53, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
@@ -426,7 +432,7 @@ public class NguoiDungDJ extends javax.swing.JDialog {
             String tenNV = txtTen.getText();
             String username = txtUsername.getText();
             String email = txtEmail.getText();
-            Date dangKy = txtDangKy.getDate();
+            String dangKy = "";
             String sdt = txtSdt.getText();
             Date ngaySinh = txtNgaySinh.getDate();
             String password = new String(txtPassword.getPassword());
@@ -441,7 +447,7 @@ public class NguoiDungDJ extends javax.swing.JDialog {
                     hinhAnh,
                     email,
                     cccd,
-                    new SimpleDateFormat("yyyy-MM-dd").format(dangKy),
+                    dangKy,
                     gioiTinh,
                     sdt,
                     new SimpleDateFormat("yyyy-MM-dd").format(ngaySinh),
@@ -495,11 +501,12 @@ public class NguoiDungDJ extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else if (actionType == ActionType.EDIT) {
+            String id = txtID.getText();
             String cccd = txtCccd.getText();
             String tenNV = txtTen.getText();
             String username = txtUsername.getText();
             String email = txtEmail.getText();
-            Date dangKy = txtDangKy.getDate();
+            String dangKy = "";
             String sdt = txtSdt.getText();
             Date ngaySinh = txtNgaySinh.getDate();
             String password = new String(txtPassword.getPassword());
@@ -508,13 +515,13 @@ public class NguoiDungDJ extends javax.swing.JDialog {
             String gioiTinhString = "";
             int gioiTinh = parseGenderToInt(gioiTinhString);
             String vaiTro = cbxVaiTro.getSelectedItem().toString();
-            nguoiDung editedND = new nguoiDung(username,
+            nguoiDung editedND = new nguoiDung(id, username,
                     password,
                     tenNV,
                     hinhAnh,
                     email,
                     cccd,
-                    new SimpleDateFormat("yyyy-MM-dd").format(dangKy),
+                    dangKy,
                     gioiTinh,
                     sdt,
                     new SimpleDateFormat("yyyy-MM-dd").format(ngaySinh),
@@ -686,6 +693,7 @@ public class NguoiDungDJ extends javax.swing.JDialog {
     private javax.swing.JPasswordField txtConfirmPass;
     private com.toedter.calendar.JDateChooser txtDangKy;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtID;
     private com.toedter.calendar.JDateChooser txtNgaySinh;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtSdt;

@@ -54,12 +54,14 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
             } else if (s.getGioi_tinh() == 1) {
                 gioiTinh = "Nữ";
             }
+            String ngay = s.getNgay_them();
+            String ketQua = ngay.substring(0, ngay.length() - 8);
             dtm.addRow(new Object[]{
                 s.getId(),
                 s.getTen_khach(),
                 gioiTinh,
                 s.getSdt(),
-                s.getNgay_them(),
+                ketQua,
                 s.getTrang_thai()
             });
         });
@@ -172,8 +174,8 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1050, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1046, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +183,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -209,7 +211,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(19, 19, 19)
                     .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(18, Short.MAX_VALUE)))
+                    .addContainerGap(23, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +231,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
                 .addContainerGap(652, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(62, Short.MAX_VALUE)
+                    .addContainerGap(61, Short.MAX_VALUE)
                     .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(16, 16, 16)))
         );
@@ -297,10 +299,10 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
 
             if (confirm == JOptionPane.YES_OPTION) {
                 // Set trạng thái của nhân viên thành "Đã nghỉ"
-                boolean updateStatus = khService.updateStatus(idNhanVien, "Inactive");
+                boolean updateStatus = khService.updateStatus(idNhanVien, "Đã xóa");
 
                 if (updateStatus) {
-                    JOptionPane.showMessageDialog(this, "Xóa thành công. Khách hàng đã chuyển sang trạng thái 'Inactive'.");
+                    JOptionPane.showMessageDialog(this, "Xóa thành công");
                     listKH = khService.getAll_KH();
                     ShowData(listKH);
                 } else {
@@ -308,7 +310,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một nhân viên để xóa.");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một khách hàng để xóa.");
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 

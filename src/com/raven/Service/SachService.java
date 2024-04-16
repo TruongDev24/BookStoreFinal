@@ -232,13 +232,13 @@ public class SachService {
     }
 
     public List<TacGia> getAllTG() {
-        String sql = "select * from TacGia where trang_thai <> N'Đã xóa'";
+        String sql = "SELECT * FROM TacGia WHERE trang_thai = N'Hoạt động';";
         try ( PreparedStatement ps = conn.prepareStatement(sql)) {
             List<TacGia> vm = new ArrayList<>();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 TacGia vcm = new TacGia(
-                        rs.getString(1),
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4));
@@ -252,13 +252,13 @@ public class SachService {
     }
 
     public List<TheLoai> getAllTL() {
-        String sql = "select * from TheLoai where trang_thai <> N'Đã xóa'";
+        String sql = "select * from TheLoai WHERE trang_thai = N'Hoạt động';";
         try ( PreparedStatement ps = conn.prepareStatement(sql)) {
             List<TheLoai> vm = new ArrayList<>();
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 TheLoai vcm = new TheLoai(
-                        rs.getString(1),
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4));
@@ -272,7 +272,7 @@ public class SachService {
     }
 
     public List<NXB> getAllNXB() {
-        String sql = "select * from NhaXuatBan where trang_thai <> N'Đã xóa'";
+        String sql = "select * from NhaXuatBan WHERE trang_thai = N'Hoạt động';";
         try ( PreparedStatement ps = conn.prepareStatement(sql)) {
             List<NXB> vm = new ArrayList<>();
             ResultSet rs = ps.executeQuery();
