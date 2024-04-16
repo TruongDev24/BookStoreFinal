@@ -281,7 +281,7 @@ VALUES
 -- Chèn dữ liệu vào bảng NhanVien
 INSERT INTO [dbo].[NhanVien] ([username], [password], [ten_nv], [hinh_anh], [email], [cccd], [ngay_dangki], [gioi_tinh], [sdt], [ngay_sinh], [vai_tro], [trang_thai])
 VALUES 
-    ('nhanvien2', 'nhanvien123', N'Nhân viên 2', 'E:\DuAn\BookStoreTruong\src\com\raven\image\1.png', 'nhanvien2@example.com', '123456780', GETDATE(), 1, '0987654322', '1992-02-02', N'Staff', N'Active')
+    ('1', '1', N'Nhân viên 2', 'E:\DuAn\BookStore\src\com\raven\image\1.png', 'nhanvien2@example.com', '123456780', GETDATE(), 1, '0987654322', '1992-02-02', N'Staff', N'Active')
 
        
 -- Chèn dữ liệu vào bảng Voucher

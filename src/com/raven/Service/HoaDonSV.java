@@ -20,7 +20,34 @@ public class HoaDonSV {
     private Connection conn = DBConnect.getConnection();
 
     public List<HoaDonModel> getAll() {
-        String sql = "select * from HoaDon";
+        String sql = "SELECT \n"
+                + "    hd.id AS [ID Hóa Đơn],\n"
+                + "    nv.ten_nv AS [Tên Nhân Viên],\n"
+                + "    kh.ten_khach AS [Tên Khách Hàng],\n"
+                + "    hd.ngay_tao AS [Ngày Tạo],\n"
+                + "    hd.ghi_chu AS [Ghi Chú],\n"
+                + "    hd.tong_tien AS [Tổng Tiền],\n"
+                + "    hd.id_khuyenmai,\n"
+                + "    CASE \n"
+                + "        WHEN hd.id_voucher IS NULL THEN N'Không có'\n"
+                + "        ELSE vc.ten_vc\n"
+                + "    END AS [Tên Voucher],\n"
+                + "    CASE \n"
+                + "        WHEN hd.thanh_toan = 0 THEN N'Tiền mặt'\n"
+                + "        WHEN hd.thanh_toan = 1 THEN N'Chuyển khoản'\n"
+                + "        ELSE 'Unknown'\n"
+                + "    END AS [Phương Thức Thanh Toán],\n"
+                + "    hd.trang_thai AS [Trạng Thái]\n"
+                + "FROM \n"
+                + "    HoaDon hd\n"
+                + "JOIN \n"
+                + "    NhanVien nv ON hd.id_tk = nv.id\n"
+                + "JOIN \n"
+                + "    KhachHang kh ON hd.id_khach = kh.id\n"
+                + "LEFT JOIN\n"
+                + "    Voucher vc ON hd.id_voucher = vc.id\n"
+                + "WHERE \n"
+                + "    hd.thanh_toan IN (0, 1);";
         try ( PreparedStatement ps = conn.prepareStatement(sql)) {
             List<HoaDonModel> kh = new ArrayList<>();
             ResultSet rs = ps.executeQuery();

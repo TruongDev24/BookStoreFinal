@@ -621,7 +621,7 @@ public class Form_BanHang extends javax.swing.JPanel {
 
     private void btnTaoHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoHDActionPerformed
         khachHang khachHang = (khachHang) listKhachHang.getSelectedItem();
-        HoaDon hoaDon = new HoaDon(AuthSession.uid, khachHang.getId(), Timestamp.valueOf(LocalDateTime.now()), "Ghi chú", 0, "Đang chờ");
+        HoaDon hoaDon = new HoaDon(AuthSession.uid, khachHang.getId(), Timestamp.valueOf(LocalDateTime.now()), "Ghi chú", 3, "Đang chờ");
         banHangService.createOrder(hoaDon);
         tienGiam = 0;
         tienDu = 0;
@@ -693,14 +693,18 @@ public class Form_BanHang extends javax.swing.JPanel {
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {
 //GEN-FIRST:event_btnThanhToanActionPerformed
-         try {
-             int idHD = Integer.parseInt(lblMaHoaDon.getText());
+        try {
+            int idHD = Integer.parseInt(lblMaHoaDon.getText());
+            Integer thanhtoan = 0;
+            if (rdoChuyenKhoan.isSelected()) {
+                thanhtoan = 1;
+            }
             if (!lblTongTien.getText().equals("0.0")) {
-                banHangService.updateOrder(idHD, 1, Double.parseDouble(lblTongTien.getText()),txtVoucher.getText().equals("")?null:Integer.parseInt(txtVoucher.getText()));
+                banHangService.updateOrder(idHD, thanhtoan, Double.parseDouble(lblTongTien.getText()), txtVoucher.getText().equals("") ? null : Integer.parseInt(txtVoucher.getText()));
                 DefaultTableModel model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
                 model.setRowCount(0);
                 lblTongTien.setText("0");
-                lblMaHoaDon.setText("Chua Co");
+                lblMaHoaDon.setText("Chưa có");
                 fillToTableSanPham();
                 fillToTableHoaDon();
                 fillToTableSanPham();
@@ -729,8 +733,7 @@ public class Form_BanHang extends javax.swing.JPanel {
             fillToTableHoaDonChiTiet(idHoaDon);
         } catch (java.lang.NumberFormatException | java.lang.ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(this, "Chon Hoa Don");
-        }
-        catch (RuntimeException e){
+        } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btnAddProductActionPerformed

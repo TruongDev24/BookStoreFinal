@@ -74,11 +74,11 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã đơn hàng", "Khách Hàng", "Nhân Viên", "Ngày Tạo", "Tổng Tiền", "Phương Thức", "Trạng Thái"
+                "Mã đơn hàng", "Khách Hàng", "Nhân Viên", "Ngày Tạo", "Tổng Tiền", "Voucher", "Phương Thức", "Trạng Thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -101,12 +101,12 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel2)
-                .addContainerGap(931, Short.MAX_VALUE))
+                .addContainerGap(956, Short.MAX_VALUE))
             .addGroup(panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBorder1Layout.createSequentialGroup()
-                    .addContainerGap(19, Short.MAX_VALUE)
-                    .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1053, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)))
+                .addGroup(panelBorder1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1103, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,10 +138,10 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
                 .addComponent(jButton1)
                 .addGap(27, 27, 27))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(19, 19, 19)
-                    .addComponent(panelBorder1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(18, Short.MAX_VALUE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelBorder1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +191,7 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
         listTT.forEach(c -> {
             String ngayTaoTrimmed = c.getNgayTao().substring(0, c.getNgayTao().length() - 8);
             dtm.addRow(new Object[]{
-                c.getId(), c.getKhach(), c.getNhanVien(), ngayTaoTrimmed, c.getTongTien(), c.getPhuongThuc(), c.getTrangThai()
+                c.getId(), c.getKhach(), c.getNhanVien(), ngayTaoTrimmed, c.getTongTien(), c.getVoucher(), c.getPhuongThuc(), c.getTrangThai()
             });
         });
     }
