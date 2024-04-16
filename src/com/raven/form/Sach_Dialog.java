@@ -336,7 +336,7 @@ public class Sach_Dialog extends javax.swing.JDialog {
 
     private boolean validateInput() {
         // Kiểm tra các trường bắt buộc không được để trống
-        if (txtTenSach.getText().isEmpty() || txtSoTrang.getText().isEmpty() || txtGia.getText().isEmpty() || lblHinhAnh.getText().isEmpty() || txtMoTa.getText().isEmpty()) {
+        if (txtTenSach.getText().isEmpty() || txtSoTrang.getText().isEmpty() || txtGia.getText().isEmpty() || lblHinhAnh.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin");
             return false;
         }
