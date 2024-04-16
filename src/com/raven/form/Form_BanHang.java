@@ -134,7 +134,7 @@ public class Form_BanHang extends javax.swing.JPanel {
         btnThanhToan = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        txaGhiChu = new javax.swing.JTextArea();
+        txtGhiChu = new javax.swing.JTextArea();
         jLabel17 = new javax.swing.JLabel();
         rdoTienMat = new javax.swing.JRadioButton();
         rdoChuyenKhoan = new javax.swing.JRadioButton();
@@ -453,9 +453,9 @@ public class Form_BanHang extends javax.swing.JPanel {
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel16.setText("Ghi Chú:");
 
-        txaGhiChu.setColumns(20);
-        txaGhiChu.setRows(5);
-        jScrollPane5.setViewportView(txaGhiChu);
+        txtGhiChu.setColumns(20);
+        txtGhiChu.setRows(5);
+        jScrollPane5.setViewportView(txtGhiChu);
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel17.setText("Phương thức thanh toán");
@@ -699,8 +699,9 @@ public class Form_BanHang extends javax.swing.JPanel {
             if (rdoChuyenKhoan.isSelected()) {
                 thanhtoan = 1;
             }
+            String ghiChu = txtGhiChu.getText();
             if (!lblTongTien.getText().equals("0.0")) {
-                banHangService.updateOrder(idHD, thanhtoan, Double.parseDouble(lblTongTien.getText()), txtVoucher.getText().equals("") ? null : Integer.parseInt(txtVoucher.getText()));
+                banHangService.updateOrder(idHD, thanhtoan, Double.parseDouble(lblTongTien.getText()), ghiChu, txtVoucher.getText().equals("") ? null : Integer.parseInt(txtVoucher.getText()));
                 DefaultTableModel model = (DefaultTableModel) tblHoaDonChiTiet.getModel();
                 model.setRowCount(0);
                 lblTongTien.setText("0");
@@ -827,7 +828,7 @@ public class Form_BanHang extends javax.swing.JPanel {
     private javax.swing.JTable tblHoaDon;
     private javax.swing.JTable tblHoaDonChiTiet;
     private javax.swing.JTable tblSanPham;
-    private javax.swing.JTextArea txaGhiChu;
+    private javax.swing.JTextArea txtGhiChu;
     private javax.swing.JTextField txtTimKiemSanPham;
     private javax.swing.JTextField txtVoucher;
     // End of variables declaration//GEN-END:variables

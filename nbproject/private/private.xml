@@ -2,17 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/E:/DuAn/BookStoreTruong/src/com/raven/swing/TableHeader.java</file>
-            <file>file:/E:/DuAn/BookStoreTruong/src/com/raven/form/Form_QLKhachHang.java</file>
-            <file>file:/E:/DuAn/BookStoreTruong/src/com/raven/Service/BanHangService.java</file>
-            <file>file:/E:/DuAn/BookStoreTruong/src/com/raven/swing/Table.java</file>
-            <file>file:/E:/DuAn/BookStoreTruong/src/com/raven/Service/CTHoaDonSV.java</file>
-            <file>file:/E:/DuAn/BookStoreTruong/src/com/raven/form/Form_BanHang.java</file>
-            <file>file:/E:/DuAn/BookStoreTruong/src/com/raven/form/HDCT.java</file>
-            <file>file:/E:/DuAn/BookStoreTruong/src/com/raven/form/Form_QLHoaDon.java</file>
-            <file>file:/E:/DuAn/BookStoreTruong/src/com/raven/Service/HoaDonSV.java</file>
-            <file>file:/E:/DuAn/BookStoreTruong/src/com/raven/Model2/HoaDon.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -404,7 +404,7 @@ public class Sach_Dialog extends javax.swing.JDialog {
             return;
         }
         String ma_sach = MaSach.getText();
-        String ma = "";
+        String ma = txtMa.getText();
         String ten = txtTenSach.getText();
         String sotrang = txtSoTrang.getText();
         String gia = txtGia.getText();
@@ -433,7 +433,8 @@ public class Sach_Dialog extends javax.swing.JDialog {
         Sach sh = new Sach(ma_sach, ma, ten, sotrang, gia, sl, ngaythem, nhaxb, tgia, tloai, hinhAnh, mta, tthai);
         boolean addS = sv.update(sh);
         if (addS) {
-            System.out.println(nhaxb);
+            System.out.println(ma_sach);
+            System.out.println(ma);
             JOptionPane.showMessageDialog(this, "Sửa thành công");
             this.dispose();
         } else {

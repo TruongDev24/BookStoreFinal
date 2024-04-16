@@ -239,18 +239,19 @@ public class BanHangService {
         }
     }
 
-    public void updateOrder(int id, int thanhToan, double tongTien, Integer idVoucher) {
+    public void updateOrder(int id, int thanhToan, double tongTien, String ghichu, Integer idVoucher) {
 //        String sql = "UPDATE HoaDon SET thanh_toan = ?,tong_tien =? , id_voucher =? WHERE id = ?";
-        String sql01 = "UPDATE HoaDon SET thanh_toan = ?,tong_tien =?, trang_thai=?, id_voucher=? WHERE id = ?";
+        String sql01 = "UPDATE HoaDon SET thanh_toan = ?,tong_tien =?, ghi_chu=?, trang_thai=?, id_voucher=? WHERE id = ?";
 //       if (idVoucher == null) {
         try ( Connection conn = DBConnect.getConnection()) {
             assert conn != null;
             try ( PreparedStatement ps = conn.prepareStatement(sql01)) {
                 ps.setObject(1, thanhToan);
                 ps.setObject(2, tongTien);
-                ps.setObject(3, "Đã thanh toán");
-                ps.setObject(4, idVoucher);
-                ps.setObject(5, id);
+                ps.setObject(3, ghichu);
+                ps.setObject(4, "Đã thanh toán");
+                ps.setObject(5, idVoucher);
+                ps.setObject(6, id);
                 ps.executeUpdate();
             }
         } catch (SQLException e) {
