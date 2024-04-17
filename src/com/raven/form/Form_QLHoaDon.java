@@ -50,8 +50,8 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         xuatFileExcel = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        CbxHoaDon = new javax.swing.JComboBox<>();
+        searchBar = new javax.swing.JTextField();
         panelBorder1 = new com.raven.swing.PanelBorder();
         jLabel2 = new javax.swing.JLabel();
         spTable = new javax.swing.JScrollPane();
@@ -68,9 +68,19 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CbxHoaDon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mặc định", "Xếp theo tên Khách hàng", "Xếp theo tên Nhân viên", "Xếp theo ngày tạo", " " }));
+        CbxHoaDon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CbxHoaDonActionPerformed(evt);
+            }
+        });
 
-        jTextField1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        searchBar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        searchBar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBarActionPerformed(evt);
+            }
+        });
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -142,10 +152,10 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
                 .addGap(31, 31, 31)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 395, Short.MAX_VALUE)
+                .addComponent(CbxHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 307, Short.MAX_VALUE)
                 .addComponent(xuatFileExcel)
                 .addGap(27, 27, 27))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,8 +174,8 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CbxHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(xuatFileExcel))))
                 .addContainerGap(652, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,47 +211,78 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
         // Hiển thị hộp thoại xác nhận trước khi xuất file Excel
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xuất file Excel không?", "Xác nhận xuất file", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            // Khởi tạo một workbook Excel
-            Workbook workbook = new HSSFWorkbook(); // Hoặc Workbook workbook = new XSSFWorkbook(); nếu bạn muốn sử dụng định dạng .xlsx
+            // Hiển thị hộp thoại để người dùng nhập tên của Sheet
+            String sheetName = JOptionPane.showInputDialog(this, "Nhập tên cho Sheet:", "Tên Sheet", JOptionPane.PLAIN_MESSAGE);
 
-            // Tạo một trang mới
-            Sheet sheet = workbook.createSheet("HoaDon");
+            // Nếu người dùng nhấn Cancel hoặc không nhập tên, không làm gì cả
+            if (sheetName != null && !sheetName.isEmpty()) {
+                // Khởi tạo một workbook Excel
+                Workbook workbook = new HSSFWorkbook(); // Hoặc Workbook workbook = new XSSFWorkbook(); nếu bạn muốn sử dụng định dạng .xlsx
 
-            // Đếm số dòng và số cột trong bảng
-            int rowCount = tbHoaDon.getRowCount();
-            int columnCount = tbHoaDon.getColumnCount();
+                // Tạo một trang mới với tên do người dùng nhập vào
+                Sheet sheet = workbook.createSheet(sheetName);
 
-            // Tạo hàng đầu tiên là tiêu đề
-            Row headerRow = sheet.createRow(0);
-            for (int i = 0; i < columnCount; i++) {
-                headerRow.createCell(i).setCellValue(tbHoaDon.getColumnName(i));
-            }
+                // Đếm số dòng và số cột trong bảng
+                int rowCount = tbHoaDon.getRowCount();
+                int columnCount = tbHoaDon.getColumnCount();
 
-            // Điền dữ liệu từ bảng vào tệp Excel
-            for (int i = 0; i < rowCount; i++) {
-                Row row = sheet.createRow(i + 1);
-                for (int j = 0; j < columnCount; j++) {
-                    row.createCell(j).setCellValue(String.valueOf(tbHoaDon.getValueAt(i, j)));
+                // Tạo hàng đầu tiên là tiêu đề
+                Row headerRow = sheet.createRow(0);
+                for (int i = 0; i < columnCount; i++) {
+                    headerRow.createCell(i).setCellValue(tbHoaDon.getColumnName(i));
                 }
-            }
 
-            // Chọn vị trí lưu tệp Excel
-            JFileChooser fileChooser = new JFileChooser();
-            int option = fileChooser.showSaveDialog(this);
-            if (option == JFileChooser.APPROVE_OPTION) {
-                try {
-                    // Lưu workbook vào tệp Excel
-                    String filePath = fileChooser.getSelectedFile().getAbsolutePath();
-                    FileOutputStream fileOut = new FileOutputStream(filePath + ".xls"); // Định dạng .xls cho Workbook workbook = new HSSFWorkbook(); và .xlsx cho Workbook workbook = new XSSFWorkbook();
-                    workbook.write(fileOut);
-                    fileOut.close();
-                    JOptionPane.showMessageDialog(this, "Xuất file Excel thành công!");
-                } catch (IOException e) {
-                    JOptionPane.showMessageDialog(this, "Xuất file Excel thất bại: " + e.getMessage());
+                // Điền dữ liệu từ bảng vào tệp Excel
+                for (int i = 0; i < rowCount; i++) {
+                    Row row = sheet.createRow(i + 1);
+                    for (int j = 0; j < columnCount; j++) {
+                        row.createCell(j).setCellValue(String.valueOf(tbHoaDon.getValueAt(i, j)));
+                    }
+                }
+
+                // Chọn vị trí lưu tệp Excel
+                JFileChooser fileChooser = new JFileChooser();
+                int option = fileChooser.showSaveDialog(this);
+                if (option == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        // Lưu workbook vào tệp Excel
+                        String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+                        FileOutputStream fileOut = new FileOutputStream(filePath + ".xls"); // Định dạng .xls cho Workbook workbook = new HSSFWorkbook(); và .xlsx cho Workbook workbook = new XSSFWorkbook();
+                        workbook.write(fileOut);
+                        fileOut.close();
+                        JOptionPane.showMessageDialog(this, "Xuất file Excel thành công!");
+                    } catch (IOException e) {
+                        JOptionPane.showMessageDialog(this, "Xuất file Excel thất bại: " + e.getMessage());
+                    }
                 }
             }
         }
+
     }//GEN-LAST:event_xuatFileExcelActionPerformed
+
+    private void CbxHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbxHoaDonActionPerformed
+        // TODO add your handling code here:
+        if (CbxHoaDon.getSelectedItem().equals("Mặc định")) {
+            list1 = sv.getAll();
+            showData(list1);
+        } else if (CbxHoaDon.getSelectedItem().equals("Xếp theo tên Khách hàng")) {
+            list1 = sv.SapXepTenKH();
+            showData(list1);
+        } else if (CbxHoaDon.getSelectedItem().equals("Xếp theo tên Nhân viên")) {
+            list1 = sv.SapXepTenNV();
+            showData(list1);
+        } else if (CbxHoaDon.getSelectedItem().equals("Xếp theo ngày tạo")) {
+            list1 = sv.SapXepNgayTao();
+            showData(list1);
+        }
+    }//GEN-LAST:event_CbxHoaDonActionPerformed
+
+    private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
+        // TODO add your handling code here:
+        String ten = searchBar.getText();
+        list1 = sv.TimKH(ten);
+        showData(list1);
+    }//GEN-LAST:event_searchBarActionPerformed
 
     public void showData(List<HoaDonModel> listTT) {
         dtm.setRowCount(0);
@@ -255,12 +296,12 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> CbxHoaDon;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private com.raven.swing.PanelBorder panelBorder1;
+    private javax.swing.JTextField searchBar;
     private javax.swing.JScrollPane spTable;
     private com.raven.swing.Table tbHoaDon;
     private javax.swing.JButton xuatFileExcel;
