@@ -6,6 +6,7 @@
 package com.raven.form;
 
 import com.raven.Model2.HoaDon;
+import com.raven.Model2.Sach;
 import com.raven.Model2.VCmodel;
 import com.raven.Model2.khachHang;
 import com.raven.Service.BanHangService;
@@ -19,6 +20,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -69,10 +71,27 @@ public class Form_BanHang extends javax.swing.JPanel {
 
     public void fillToTableSanPham() {
         DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
-        model.setRowCount(0);
-        sachService.getAllByStatus("Hiện").forEach(sach -> {
-            model.addRow(sach.toArray());
-        });
+        model.setRowCount(0); // Xóa tất cả các hàng hiện có trong bảng trước khi điền dữ liệu mới
+
+        // Lấy danh sách các sản phẩm có trạng thái là "Hiện" từ sachService
+        List<Sach> danhSachSach = sachService.getAllByStatus("Hiện");
+
+        // Duyệt qua từng sản phẩm và thêm vào bảng
+        for (Sach sach : danhSachSach) {
+            // Cắt chuỗi "Nhà Xuất Bản " từ giá trị trả về của sach.getNXB()
+            String nxb = sach.getNxb().substring("Nhà Xuất Bản ".length());
+
+            Object[] rowData = {
+                sach.getId(),
+                sach.getTenSach(),
+                nxb,
+                sach.getTacGia(),
+                sach.getTheLoai(),
+                sach.getSoLuong(),
+                sach.getGiaBan()
+            };
+            model.addRow(rowData); // Thêm hàng mới vào bảng với dữ liệu của sản phẩm
+        }
     }
 
     public void fillToTableHoaDonChiTiet(int id) {
@@ -258,6 +277,11 @@ public class Form_BanHang extends javax.swing.JPanel {
 
         jLabel2.setText("Tìm kiếm sản phẩm:");
 
+        txtTimKiemSanPham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKiemSanPhamActionPerformed(evt);
+            }
+        });
         txtTimKiemSanPham.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTimKiemSanPhamKeyReleased(evt);
@@ -783,6 +807,39 @@ public class Form_BanHang extends javax.swing.JPanel {
         tienGiam = 0;
 
     }//GEN-LAST:event_btnHuyApDungActionPerformed
+
+    private void txtTimKiemSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemSanPhamActionPerformed
+        // TODO add your handling code here:
+        String timKiem = txtTimKiemSanPham.getText();
+
+        DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
+        model.setRowCount(0); // Xóa tất cả các hàng hiện có trong bảng trước khi điền dữ liệu mới
+
+        // Lấy danh sách các sản phẩm có trạng thái là "Hiện" từ sachService
+        List<Sach> danhSachSach = sachService.TimSach(timKiem);
+
+        // Nếu danh sách rỗng, hiển thị thông báo
+        if (danhSachSach.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không có thông tin trùng khớp", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            // Duyệt qua từng sản phẩm và thêm vào bảng
+            for (Sach sach : danhSachSach) {
+                // Cắt chuỗi "Nhà Xuất Bản " từ giá trị trả về của sach.getNXB()
+                String nxb = sach.getNxb().substring("Nhà Xuất Bản ".length());
+
+                Object[] rowData = {
+                    sach.getId(),
+                    sach.getTenSach(),
+                    nxb,
+                    sach.getTacGia(),
+                    sach.getTheLoai(),
+                    sach.getSoLuong(),
+                    sach.getGiaBan()
+                };
+                model.addRow(rowData); // Thêm hàng mới vào bảng với dữ liệu của sản phẩm
+            }
+        }
+    }//GEN-LAST:event_txtTimKiemSanPhamActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
