@@ -57,6 +57,7 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
         spTable = new javax.swing.JScrollPane();
         tbHoaDon = new com.raven.swing.Table();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         xuatFileExcel.setBackground(new java.awt.Color(18, 64, 118));
         xuatFileExcel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -144,6 +145,16 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/search.png"))); // NOI18N
 
+        jButton1.setBackground(new java.awt.Color(18, 64, 118));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(249, 232, 151));
+        jButton1.setText("Load");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -155,7 +166,9 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
                 .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(CbxHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 307, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
                 .addComponent(xuatFileExcel)
                 .addGap(27, 27, 27))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,7 +189,8 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(CbxHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(xuatFileExcel))))
+                            .addComponent(xuatFileExcel)
+                            .addComponent(jButton1))))
                 .addContainerGap(652, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -284,6 +298,12 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
         showData(list1);
     }//GEN-LAST:event_searchBarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        list1 = sv.getAll();
+        showData(list1);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public void showData(List<HoaDonModel> listTT) {
         dtm.setRowCount(0);
         listTT.forEach(c -> {
@@ -297,6 +317,7 @@ public class Form_QLHoaDon extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbxHoaDon;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

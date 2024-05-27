@@ -95,6 +95,28 @@ public class NguoiDungDJ extends javax.swing.JDialog {
         return true;
     }
 
+    private boolean isDuplicateInformation(String email, String sdt, String username, String cccd) {
+        for (nguoiDung nd : list) {
+            if (nd.getEmail().equals(email)) {
+                JOptionPane.showMessageDialog(this, "Email đã tồn tại. Vui lòng chọn một email khác.");
+                return true;
+            }
+            if (nd.getSdt().equals(sdt)) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại đã tồn tại. Vui lòng chọn một số điện thoại khác.");
+                return true;
+            }
+            if (nd.getUsername().equals(username)) {
+                JOptionPane.showMessageDialog(this, "Tên người dùng đã tồn tại. Vui lòng chọn một tên người dùng khác.");
+                return true;
+            }
+            if (nd.getCccd().equals(cccd)) {
+                JOptionPane.showMessageDialog(this, "CCCD đã tồn tại. Vui lòng chọn một số CCCD khác.");
+                return true;
+            }
+        }
+        return false;
+    }
+
     private boolean isValidCCCD(String cccd) {
         return cccd.matches("\\d{12}"); // Kiểm tra xem CCCD có 12 chữ số không
     }
@@ -441,6 +463,14 @@ public class NguoiDungDJ extends javax.swing.JDialog {
             String gioiTinhString = "";
             int gioiTinh = parseGenderToInt(gioiTinhString);
             String vaiTro = cbxVaiTro.getSelectedItem().toString();
+
+            if (nd.checkDuplicate(cccd, sdt, username)) {
+                JOptionPane.showMessageDialog(this, "Đã có nhân viên này");
+                return;
+            }
+            if (isDuplicateInformation(email, sdt, username, cccd)) {
+                return;
+            }
             nguoiDung newND = new nguoiDung(username,
                     password,
                     tenNV,
@@ -515,6 +545,11 @@ public class NguoiDungDJ extends javax.swing.JDialog {
             String gioiTinhString = "";
             int gioiTinh = parseGenderToInt(gioiTinhString);
             String vaiTro = cbxVaiTro.getSelectedItem().toString();
+            
+            if (isDuplicateInformation(email, sdt, username, cccd)) {
+                return;
+            }
+            
             nguoiDung editedND = new nguoiDung(id, username,
                     password,
                     tenNV,
